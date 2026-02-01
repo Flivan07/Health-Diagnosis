@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f7fc;
+      color: #333;
+    }
+
+    header {
+      background-color: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    .container {
+      padding: 30px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 15px;
+    }
+
+    p {
+      font-size: 1rem;
+      margin-bottom: 25px;
+    }
+
+    ul.action-list {
+      list-style-type: none;
+    }
+
+    ul.action-list li {
+      margin: 15px 0;
+    }
+
+    a.button {
+      display: inline-block;
+      padding: 15px 30px;
+      background-color: #3498db;
+      color: white;
+      font-size: 1.1rem;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    a.button:hover {
+      background-color: #2980b9;
+      transform: translateY(-3px);
+    }
+
+    a.button:active {
+      background-color: #1abc9c;
+      transform: translateY(1px);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>User Control</h1>
+    <nav>
+      <a href="appointment.html">Appointment</a>
+      <a href="about.html">About Us</a>
+      <a href="review.html">Review</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <h2>Hello, User!</h2>
+    <p>Welcome to your dashboard. You can perform the following actions:</p>
+    <ul class="action-list">
+      <li><a href="appointment1.html" class="button">Make An Appointment</a></li>
+      
+      <li><a href="review.html" class="button">Give a review</a></li>
+      <li><a href="login.html" class="button">Logout</a></li>
+    </ul>
+  </div>
+</body>
+</html>

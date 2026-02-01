@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Register</h1>
+  </header>
+
+  <div class="container">
+    <h2>Create an Account</h2>
+    <form>
+      <label for="firstName">First Name</label>
+      <input type="text" id="firstName" required>
+
+      <label for="lastName">Last Name</label>
+      <input type="text" id="lastName" required>
+
+      <label for="email">Email</label>
+      <input type="email" id="email" required>
+
+      <label for="mobile">Mobile (11 Digits)</label>
+      <input type="tel" id="mobile" pattern="[0-9]{11}" required>
+
+      <label for="nic">NIC (13 Digits)</label>
+      <input type="text" id="nic" pattern="[0-9]{13}" required>
+
+      <label for="dob">Date of Birth</label>
+      <input type="date" id="dob" required>
+
+      <label for="gender">Gender</label>
+      <select id="gender">
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+      </select>
+
+      <label for="password">Password</label>
+      <input type="password" id="password" required>
+
+      <button type="submit">Register</button>
+    </form>
+  </div>
+</body>
+</html>

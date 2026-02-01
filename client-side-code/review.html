@@ -1,0 +1,121 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Review Database</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Review Database</h1>
+   
+  </header>
+
+  
+  <main>
+
+
+    <section>
+      <h2>User Reviews</h2>
+      <table id="reviews-table">
+        <thead>
+          <tr>
+            <th>User ID</th>
+            <th>Feedback</th>
+            <th>Rating</th>
+          </tr>
+        </thead>
+        <tbody>
+         <!-- review will be shown here -->
+        </tbody>
+      </table>
+    
+      <h3>Add a Review</h3>
+      <form id="review-form">
+        <label for="userid">User ID</label>
+        <input type="number" id="userid" name="userid" placeholder="Enter your User ID" required />
+    
+        <label for="rating">Rating</label>
+        <input type="number" id="rating" name="rating" min="1" max="5" placeholder="Enter a rating (1-5)" required />
+    
+        <label for="feedback">Review</label>
+        <textarea id="feedback" name="feedback" rows="5" placeholder="Write your review here..." required></textarea>
+    
+        <button type="submit">Send Review</button>
+      </form>
+    </section>
+    
+    <script>
+      const reviewsApi = "http://localhost:4500/reviews";
+    
+      // Fetch reviews
+      const fetchReviews = async () => {
+        try {
+          const response = await fetch(reviewsApi);
+          const reviews = await response.json();
+    
+          const tableBody = document.querySelector("#reviews-table tbody");
+          tableBody.innerHTML = ""; 
+    
+          reviews.forEach((review) => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+              <td>${review.user_id}</td>
+              <td>${review.feedback}</td>
+              <td>${review.rating}</td>
+            `;
+            tableBody.appendChild(row);
+          });
+        } catch (error) {
+          console.error("Error fetching reviews:", error);
+        }
+      };
+    
+      // Post riveiw
+      const postReview = async (event) => {
+        event.preventDefault();
+    
+        const userid = document.getElementById("userid").value;
+        const rating = document.getElementById("rating").value;
+        const feedback = document.getElementById("feedback").value;
+    
+        const reviewData = { userid, rating, feedback };
+    
+        try {
+          const response = await fetch("http://localhost:4500/review", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(reviewData),
+          });
+    
+          if (response.ok) {
+            alert("Review submitted successfully!");
+            document.getElementById("review-form").reset();
+            fetchReviews(); 
+          } else {
+            alert("Failed to submit review. Please try again.");
+          }
+        } catch (error) {
+          console.error("Error submitting review:", error);
+        }
+      };
+    
+    
+      document.getElementById("review-form").addEventListener("submit", postReview);
+    
+   
+      fetchReviews();
+    </script>
+    
+
+
+
+  </main>
+
+  <footer>
+    <p>2024 Health and Diagnosis System</p>
+  </footer>
+</body>
+</html>

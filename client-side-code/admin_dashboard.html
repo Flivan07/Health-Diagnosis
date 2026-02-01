@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Admin Dashboard</h1>
+  </header>
+
+  <div class="container">
+    <h2>Welcome, Admin!</h2>
+    <section>
+      <h3>All Users</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="user-table-body"></tbody>
+      </table>
+    </section>
+  </div>
+
+  <script>
+    fetch('http://localhost:4500/newuser')
+      .then(response => response.json())
+      .then(users => {
+        const tableBody = document.getElementById('user-table-body');
+        tableBody.innerHTML = '';
+        users.forEach(user => {
+
+
+          const row = document.createElement('tr');
+          
+          row.innerHTML = `
+            <td>${user.id}</td>
+            <td>${user.name}</td>
+            <td>${user.email}</td>
+            <td>${'Normal User'}</td>
+            <td><button class="delete-btn" data-email="${user.email}">Delete</button></td>
+          `;
+          tableBody.appendChild(row);
+        });
+
+        document.querySelectorAll('.delete-btn').forEach(button => {
+          button.addEventListener('click', () => {
+            const userEmail = button.getAttribute('data-email');
+            if (confirm(`Delete user with email: ${userEmail}?`)) {
+
+
+              fetch(`http://localhost:4500/newuser/${userEmail}`, { method: 'DELETE' })
+                .then(() => {
+                  alert('User deleted');
+                  button.closest('tr').remove();
+                })
+                .catch(() => alert('Failed to delete user'));
+            }
+          });
+        });
+      })
+      .catch(() => alert('Failed to load user data'));
+  </script>
+</body>
+</html>

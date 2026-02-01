@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            height: auto;
+            padding-bottom: 200px;
+        }
+
+        h1,
+        h2 {
+            text-align: center;
+        }
+
+        form {
+            max-width: 300px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+
+        form:not(:last-of-type) {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 10px 0;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button[type="submit"] {
+            background-color: blue;
+        }
+
+        form:last-of-type button {
+            background-color: green;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+    </style>
+
+</head>
+
+<body>
+    <h1>Login</h1>
+
+    <h2>Admin Login</h2>
+    <form onsubmit="handleAdminLogin(event)">
+        <label for="admin-email">Admin Email:</label>
+        <input type="email" id="admin-email" name="admin-email" placeholder="Enter admin email" required>
+        <label for="admin-password">Password:</label>
+        <input type="password" id="admin-password" name="admin-password" placeholder="Enter password" required>
+        <button type="submit">Login as Admin</button>
+    </form>
+
+    <h2>User Login</h2>
+    <form onsubmit="handleUserLogin(event)">
+        <label for="user-email">User Email:</label>
+        <input type="email" id="user-email" name="user-email" placeholder="Enter user email" required>
+        <label for="user-password">Password:</label>
+        <input type="password" id="user-password" name="user-password" placeholder="Enter password" required>
+        <button type="submit">Login as User</button>
+    </form>
+</body>
+
+<script>
+    const adminEmails = ["molla1mamun@gmail.com", "Tushmi@gmail.com", "Farhan@gmail.com"];
+
+    function handleAdminLogin(event) {
+        event.preventDefault();
+        const adminEmail = document.getElementById("admin-email").value;
+
+        if (adminEmails.includes(adminEmail)) {
+            alert("Admin login successful!");
+            window.location.href = "home.html";
+        } else {
+            alert("Invalid admin email!");
+        }
+    }
+
+    async function handleUserLogin(event) {
+        event.preventDefault();
+        const userEmail = document.getElementById("user-email").value;
+
+        try {
+            const response = await fetch("http://localhost:4500/newuser");
+            const users = await response.json();
+
+            const userExists = users.some(user => user.email === userEmail);
+
+            if (userExists) {
+                alert("User login successful!");
+                window.location.href = "home1.html";
+            } else {
+                alert("User email not found!");
+            }
+        } catch (error) {
+            console.error("Error fetching user data:", error);
+            alert("Failed to verify user email. Please try again later.");
+        }
+    }
+</script>
+
+</html>

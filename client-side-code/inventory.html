@@ -1,0 +1,54 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inventory Management</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Inventory Management</h1>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="appointment.html">Appointment</a>
+      <a href="about.html">About Us</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <h2>Manage Inventory</h2>
+      <form action="/inventory" method="POST">
+        <label for="item-name">Item Name:</label>
+        <input type="text" id="item-name" name="item_name" required>
+
+        <label for="ID">ID:</label>
+        <input type="number" id="ID" name="ID" required>
+
+        <label for="staff_id">Staff ID:</label>
+        <input type="number" id="Staff ID" name="Staff ID" required>
+
+        <button type="submit">Add Item</button>
+      </form>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Item Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Dynamic inventory rows will go here -->
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Health and Diagnosis System</p>
+  </footer>
+</body>
+</html>

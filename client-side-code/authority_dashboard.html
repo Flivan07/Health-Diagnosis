@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Authority Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .hidden {
+      display: none;
+    }
+
+    .staff-options {
+      margin-top: 10px;
+    }
+
+    /* Add some basic styling for form inputs */
+    .staff-form input, .staff-form select {
+      padding: 5px;
+      margin: 5px;
+      width: 200px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Authority Dashboard</h1>
+  </header>
+
+  <div class="container">
+    <h2>Welcome, Authority!</h2>
+
+    <!-- Section: Register Staff -->
+    <section>
+      <h3>Staff Management</h3>
+      <button id="register-staff-btn">Register Staff</button>
+
+      <div id="staff-options" class="hidden staff-options">
+        <button class="staff-option-btn" data-role="doctor">Doctor</button>
+        <button class="staff-option-btn" data-role="nurse">Nurse</button>
+        <button class="staff-option-btn" data-role="receptionist">Receptionist</button>
+      </div>
+
+      <!-- Dynamic Staff Registration Form -->
+      <div id="staff-registration-form" class="hidden staff-form">
+        <h4>Register New Staff</h4>
+        <form id="staff-form">
+          <label for="staff-name">Name:</label>
+          <input type="text" id="staff-name" name="staff-name" required placeholder="Enter name">
+          <label for="staff-role">Role:</label>
+          <select id="staff-role" name="staff-role" required>
+            <option value="doctor">Doctor</option>
+            <option value="nurse">Nurse</option>
+            <option value="receptionist">Receptionist</option>
+          </select>
+          <button type="submit">Register</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Section: View Staff -->
+    <section>
+      <h3>Registered Staff</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="staff-list">
+          <!-- Example rows, to be dynamically generated -->
+          <!-- These rows should be dynamically generated based on the data provided by the authority -->
+        </tbody>
+      </table>
+    </section>
+  </div>
+
+  <script>
+    // Toggle staff options when the "Register Staff" button is clicked
+    const registerStaffBtn = document.getElementById('register-staff-btn');
+    const staffOptions = document.getElementById('staff-options');
+    const staffRegistrationForm = document.getElementById('staff-registration-form');
+    const staffList = document.getElementById('staff-list');
+
+    registerStaffBtn.addEventListener('click', () => {
+      staffOptions.classList.toggle('hidden');
+    });
+
+    // Handle staff registration buttons
+    document.querySelectorAll('.staff-option-btn').forEach(button => {
+      button.addEventListener('click', () => {
+        const role = button.getAttribute('data-role');
+        // Show the registration form and pre-select the role
+        staffRegistrationForm.classList.remove('hidden');
+        document.getElementById('staff-role').value = role;
+      });
+    });
+
+    // Handle staff registration form submission
+    document.getElementById('staff-form').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const staffName = document.getElementById('staff-name').value;
+      const staffRole = document.getElementById('staff-role').value;
+
+      // Add the new staff to the table (this could be done with an API call)
+      const staffRow = document.createElement('tr');
+      const staffId = Date.now(); // Just using the timestamp as a dummy ID
+
+      staffRow.innerHTML = `
+        <td>${staffId}</td>
+        <td>${staffName}</td>
+        <td>${staffRole}</td>
+        <td>
+          <button class="update-btn" data-id="${staffId}">Update</button>
+          <button class="delete-btn" data-id="${staffId}">Delete</button>
+        </td>
+      `;
+
+      staffList.appendChild(staffRow);
+
+      // Clear the form and hide it
+      document.getElementById('staff-name').value = '';
+      staffRegistrationForm.classList.add('hidden');
+    });
+
+    // Example delete and update actions
+    document.querySelectorAll('.delete-btn').forEach(button => {
+      button.addEventListener('click', () => {
+        const staffId = button.getAttribute('data-id');
+        if (confirm('Are you sure you want to delete this staff member?')) {
+          // Add API call to delete staff by ID (here, we're just removing the row)
+          button.closest('tr').remove();
+        }
+      });
+    });
+
+    document.querySelectorAll('.update-btn').forEach(button => {
+      button.addEventListener('click', () => {
+        const staffId = button.getAttribute('data-id');
+        // Redirect to update page or open a modal for updating staff
+        console.log(`Redirecting to update page for Staff ${staffId}`);
+      });
+    });
+  </script>
+</body>
+</html>

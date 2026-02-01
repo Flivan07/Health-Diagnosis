@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Send Message</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Send Message</h1>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="logout.html">Logout</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <h2>Contact Authority</h2>
+    <form id="messageForm" action="/send-message" method="POST">
+      <!-- User Information -->
+      <label for="userName">Your Name</label>
+      <input type="text" id="userName" name="userName" placeholder="Enter your name" required>
+
+      <label for="userEmail">Your Email</label>
+      <input type="email" id="userEmail" name="userEmail" placeholder="Enter your email" required>
+
+      <!-- Select Authority -->
+      <label for="authority">Select Authority</label>
+      <select id="authority" name="authority" required>
+        <option value="" disabled selected>Select authority</option>
+        <option value="admin">Admin</option>
+        <option value="healthAuthority">Health Authority</option>
+        <option value="support">Support Team</option>
+      </select>
+
+      <!-- Message Input -->
+      <label for="message">Message</label>
+      <textarea id="message" name="message" rows="5" placeholder="Write your message here..." required></textarea>
+
+      <button type="submit">Send Message</button>
+    </form>
+    <p class="notification" id="messageStatus" style="display: none;"></p>
+  </div>
+
+  <footer>
+    <p>&copy; 2024 Health and Diagnosis System. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    // Optional: Add some JavaScript for better UX
+    const messageForm = document.getElementById('messageForm');
+    const messageStatus = document.getElementById('messageStatus');
+
+    messageForm.addEventListener('submit', (event) => {
+      event.preventDefault(); // Prevent form from refreshing the page
+      
+      // Simulate sending the message
+      messageStatus.textContent = "Your message has been sent successfully!";
+      messageStatus.style.display = "block";
+      messageStatus.style.backgroundColor = "#d4edda"; // Green background for success
+      messageForm.reset(); // Clear the form after submission
+    });
+  </script>
+</body>
+</html>
